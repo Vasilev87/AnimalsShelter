@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AnimalsShelter.Web.Models;
-using AnimalsShelter.DataModel;
+using AnimalsShelter.Data.Model;
 
 namespace AnimalsShelter.Web.Controllers
 {

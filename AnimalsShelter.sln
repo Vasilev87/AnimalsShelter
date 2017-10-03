@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Web", "Anima
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Data", "AnimalsShelter.Data\AnimalsShelter.Data.csproj", "{DE4B3984-BDC4-42A7-985E-4E2E8A80E1FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.DataModel", "AnimalsShelter.DataModel\AnimalsShelter.DataModel.csproj", "{8C78F957-4B40-4EE2-97E1-91F19CF80E67}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E2D7F1C3-FA2E-45B9-98EB-32A02BF83475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalShelter.Common", "AnimalShelter.Common\AnimalShelter.Common.csproj", "{025299BF-C3FD-4629-AB27-4D61B9D69E1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Data.Model", "AnimalsShelter.Data.Model\AnimalsShelter.Data.Model.csproj", "{8C78F957-4B40-4EE2-97E1-91F19CF80E67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,10 @@ Global
 		{DE4B3984-BDC4-42A7-985E-4E2E8A80E1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE4B3984-BDC4-42A7-985E-4E2E8A80E1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE4B3984-BDC4-42A7-985E-4E2E8A80E1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{025299BF-C3FD-4629-AB27-4D61B9D69E1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{025299BF-C3FD-4629-AB27-4D61B9D69E1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{025299BF-C3FD-4629-AB27-4D61B9D69E1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{025299BF-C3FD-4629-AB27-4D61B9D69E1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{025299BF-C3FD-4629-AB27-4D61B9D69E1B} = {E2D7F1C3-FA2E-45B9-98EB-32A02BF83475}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {750FB037-1287-4376-BD77-66E35051E50B}

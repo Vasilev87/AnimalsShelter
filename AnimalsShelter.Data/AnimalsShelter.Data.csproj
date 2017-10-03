@@ -53,19 +53,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201710031940207_Initial.cs" />
+    <Compile Include="Migrations\201710031940207_Initial.Designer.cs">
+      <DependentUpon>201710031940207_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MsSqlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\EfRepository.cs" />
+    <Compile Include="Repositories\IEfRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnimalsShelter.DataModel\AnimalsShelter.DataModel.csproj">
-      <Project>{8C78F957-4B40-4EE2-97E1-91F19CF80E67}</Project>
-      <Name>AnimalsShelter.DataModel</Name>
+    <ProjectReference Include="..\AnimalShelter.Common\AnimalShelter.Common.csproj">
+      <Project>{025299BF-C3FD-4629-AB27-4D61B9D69E1B}</Project>
+      <Name>AnimalShelter.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AnimalsShelter.Data.Model\AnimalsShelter.Data.Model.csproj">
+      <Project>{8C78F957-4B40-4EE2-97E1-91F19CF80E67}</Project>
+      <Name>AnimalsShelter.Data.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710031940207_Initial.resx">
+      <DependentUpon>201710031940207_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

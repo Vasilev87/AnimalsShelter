@@ -1,5 +1,9 @@
 namespace AnimalsShelter.Data.Migrations
 {
+    using AnimalShelter.Common.Enums;
+    using AnimalsShelter.Data.Model;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -18,18 +22,57 @@ namespace AnimalsShelter.Data.Migrations
 
         protected override void Seed(MsSqlDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            this.SeedUsers(context);
+            this.SeedSampleData(context);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            base.Seed(context);
+        }
+
+        private void SeedUsers(MsSqlDbContext context)
+        {
+            if (!context.Roles.Any())
+            {
+                var roleName = "Admin";
+
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+                var role = new IdentityRole { Name = roleName };
+                roleManager.Create(role);
+
+                var userStore = new UserStore<User>(context);
+                var userManager = new UserManager<User>(userStore);
+                var user = new User
+                {
+                    UserName = AdministratorUserName,
+                    Email = AdministratorUserName,
+                    EmailConfirmed = true,
+                    CreatedOn = DateTime.Now
+                };
+
+                userManager.Create(user, AdministratorPasswork);
+                userManager.AddToRole(user.Id, roleName);
+            }
+        }
+
+        private void SeedSampleData(MsSqlDbContext context)
+        {
+            if (!context.Animals.Any())
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    var animal = new Animal()
+                    {
+                        Type = "Dog",
+                        Breed = "Staff",
+                        Gender = GenderType.Male,
+                        Age = i + 2,
+                        Size = SizeType.Small,
+                        User = context.Users.First(x => x.Email == AdministratorUserName),
+                        CreatedOn = DateTime.Now
+                    };
+                    context.Animals.Add(animal);
+                }
+            }
         }
     }
 }

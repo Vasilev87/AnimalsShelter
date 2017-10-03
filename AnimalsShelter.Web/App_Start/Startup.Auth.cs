@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using AnimalsShelter.Web.Models;
-using AnimalsShelter.DataModel;
+using AnimalsShelter.Data.Model;
 using AnimalsShelter.Data;
 
 namespace AnimalsShelter.Web
