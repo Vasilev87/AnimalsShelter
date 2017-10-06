@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalShelter.Common", "Ani
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Data.Model", "AnimalsShelter.Data.Model\AnimalsShelter.Data.Model.csproj", "{8C78F957-4B40-4EE2-97E1-91F19CF80E67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Services", "AnimalsShelter.Services\AnimalsShelter.Services.csproj", "{9089AA82-1202-407B-BE45-966616E87F6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C78F957-4B40-4EE2-97E1-91F19CF80E67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9089AA82-1202-407B-BE45-966616E87F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9089AA82-1202-407B-BE45-966616E87F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9089AA82-1202-407B-BE45-966616E87F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9089AA82-1202-407B-BE45-966616E87F6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

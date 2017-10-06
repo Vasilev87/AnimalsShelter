@@ -14,6 +14,8 @@ namespace AnimalsShelter.Web.App_Start
     using TelerikAcademy.ForumSystem.Data.Repositories;
     using System.Data.Entity;
     using AnimalsShelter.Data;
+    using AnimalsShelter.Services.Contracts;
+    using AutoMapper;
 
     public static class InjectionConfig 
     {
@@ -72,8 +74,16 @@ namespace AnimalsShelter.Web.App_Start
                  .BindDefaultInterface();
             });
 
+            kernel.Bind(x =>
+            {
+                x.FromAssemblyContaining(typeof(IService))
+                 .SelectAllClasses()
+                 .BindDefaultInterface();
+            });
+
             kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
             kernel.Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>));
+            kernel.Bind<IMapper>().ToMethod(x => Mapper.Instance).InSingletonScope();
         }
     }
 }
