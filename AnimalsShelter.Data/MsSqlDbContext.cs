@@ -2,11 +2,8 @@
 using AnimalsShelter.Data.Model.Contracts;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AnimalsShelter.Data
 {
@@ -18,10 +15,10 @@ namespace AnimalsShelter.Data
         }
 
         public IDbSet<Animal> Animals { get; set; }
-        public IDbSet<Shelter> ShelterAnimals { get; set; }
-        public IDbSet<Rehome> RehomeAnimals { get; set; }
-        public IDbSet<Lost> LostAnimals { get; set; }
-        public IDbSet<Found> FoundAnimals { get; set; }
+        //public IDbSet<Shelter> ShelterAnimals { get; set; }
+        //public IDbSet<Rehome> RehomeAnimals { get; set; }
+        //public IDbSet<Lost> LostAnimals { get; set; }
+        //public IDbSet<Found> FoundAnimals { get; set; }
 
         public override int SaveChanges()
         {

@@ -1,7 +1,7 @@
 namespace AnimalsShelter.Data.Migrations
 {
     using AnimalShelter.Common.Enums;
-    using AnimalsShelter.Data.Model;
+    using Model;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -62,13 +62,31 @@ namespace AnimalsShelter.Data.Migrations
                 {
                     var animal = new Animal()
                     {
-                        Type = "Dog",
-                        Breed = "Staff",
+                        Name = "Name" + i.ToString(),
+                        Type = "Dog" + i.ToString(),
+                        Breed = "Staff" + i.ToString(),
                         Gender = GenderType.Male,
-                        Age = i + 2,
+                        Age = 1 + (uint)i,
+                        Size = SizeType.Medium,
+                        User = context.Users.First(x => x.Email == AdministratorUserName),
+                        CreatedOn = DateTime.Now,
+                        IsForAdoption = true
+                    };
+                    context.Animals.Add(animal);
+                }
+                for (int i = 5; i < 10; i++)
+                {
+                    var animal = new Animal()
+                    {
+                        Name = "Name" + 1.ToString(),
+                        Type = "Cat" + i.ToString(),
+                        Breed = "Britain",
+                        Gender = GenderType.Female,
+                        Age = (uint)i - 2,
                         Size = SizeType.Small,
                         User = context.Users.First(x => x.Email == AdministratorUserName),
-                        CreatedOn = DateTime.Now
+                        CreatedOn = DateTime.Now,
+                        IsForRehome = true
                     };
                     context.Animals.Add(animal);
                 }

@@ -13,12 +13,12 @@ namespace AnimalsShelter.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710031940207_Initial"; }
+            get { return "201710090954133_Initial"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AnimalsShelter.Data.Model
 {
-    public class Rehome : DataModel, IAdoptable
+    public class Lost : DataModel
     {
         private ICollection<Animal> animals;
 
-        public Rehome()
+        public Lost()
         {
             this.animals = new HashSet<Animal>();
         }

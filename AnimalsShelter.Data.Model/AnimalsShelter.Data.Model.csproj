@@ -55,14 +55,14 @@
   <ItemGroup>
     <Compile Include="Abstracts\DataModel.cs" />
     <Compile Include="Animal.cs" />
-    <Compile Include="Contracts\IAdoptable.cs" />
+    <Compile Include="Contracts\IAnimal.cs" />
     <Compile Include="Contracts\IAuditable.cs" />
     <Compile Include="Contracts\IDeletable.cs" />
-    <Compile Include="Found.cs" />
-    <Compile Include="Lost.cs" />
+    <Compile Include="unused\Found.cs" />
+    <Compile Include="unused\Lost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rehome.cs" />
-    <Compile Include="Shelter.cs" />
+    <Compile Include="unused\Rehome.cs" />
+    <Compile Include="unused\Shelter.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

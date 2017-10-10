@@ -53,15 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201710031940207_Initial.cs" />
-    <Compile Include="Migrations\201710031940207_Initial.Designer.cs">
-      <DependentUpon>201710031940207_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201710090954133_Initial.cs" />
+    <Compile Include="Migrations\201710090954133_Initial.Designer.cs">
+      <DependentUpon>201710090954133_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MsSqlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IEfRepository.cs" />
+    <Compile Include="SaveContext\ISaveContext.cs" />
+    <Compile Include="SaveContext\SaveContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,9 +80,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710031940207_Initial.resx">
-      <DependentUpon>201710031940207_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710090954133_Initial.resx">
+      <DependentUpon>201710090954133_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

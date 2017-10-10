@@ -11,10 +11,10 @@ namespace AnimalsShelter.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Extensions.Conventions;
-    using TelerikAcademy.ForumSystem.Data.Repositories;
+    using AnimalShelter.Data.Repositories;
     using System.Data.Entity;
-    using AnimalsShelter.Data;
-    using AnimalsShelter.Services.Contracts;
+    using Data;
+    using Services.Contracts;
     using AutoMapper;
 
     public static class InjectionConfig 
