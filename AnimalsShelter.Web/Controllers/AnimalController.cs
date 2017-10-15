@@ -10,17 +10,26 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AnimalsShelter.Web.WebUtils.Contracts;
+using Bytes2you.Validation;
 
 namespace AnimalsShelter.Web.Controllers
 {
     public class AnimalController : Controller
     {
+        private readonly IVerificationProvider verification;
         private readonly IMapper mapper;
         private readonly IUsersService usersService;
         private readonly IAnimalsService animalsService;
 
-        public AnimalController(IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
+        public AnimalController(IVerificationProvider verificationProvider, IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
         {
+            Guard.WhenArgument(verification, nameof(verification)).IsNull().Throw();
+            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
+            Guard.WhenArgument(usersService, nameof(usersService)).IsNull().Throw();
+            Guard.WhenArgument(animalsService, nameof(animalsService)).IsNull().Throw();
+
+            this.verification = verificationProvider;
             this.mapper = mapper;
             this.usersService = usersService;
             this.animalsService = animalsService;

@@ -7,6 +7,10 @@
         Fish,
         Bird,
         Reptile,
-        Dinosaur
+        Dinosaur,
+        Dragon,
+        Transpormer,
+        HulkLike,
+        Amoeba
     }
 }

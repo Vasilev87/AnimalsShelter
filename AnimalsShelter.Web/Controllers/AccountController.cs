@@ -9,6 +9,7 @@ using AnimalsShelter.Web.Models;
 using AnimalsShelter.Data.Model;
 using System;
 using AnimalsShelter.Web.WebUtils.Contracts;
+using Bytes2you.Validation;
 
 namespace AnimalsShelter.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace AnimalsShelter.Web.Controllers
 
         public AccountController(IVerificationProvider verificationProvider )
         {
+            Guard.WhenArgument(verificationProvider, nameof(verificationProvider)).IsNull().Throw();
             this.verificationProvider = verificationProvider;
         }
 
@@ -31,7 +33,13 @@ namespace AnimalsShelter.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (this.verificationProvider.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Shelter");
+            }
+
             ViewBag.ReturnUrl = returnUrl;
+            ViewData["Title"] = "Log in";
             return View();
         }
 
@@ -42,10 +50,24 @@ namespace AnimalsShelter.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            if (this.verificationProvider.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Shelter");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+
+            var user = this.verificationProvider.GetUserByEmail(model.Email);
+            if (user != null && user.DeletedOn != null)
+            {
+                ModelState.AddModelError("", "Your account is blocked!");
+                return View(model);
+            }
+
+            returnUrl = string.IsNullOrEmpty(returnUrl) ? "/Store/Index" : returnUrl;
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -53,11 +75,7 @@ namespace AnimalsShelter.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return this.Redirect(returnUrl);
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -70,6 +88,12 @@ namespace AnimalsShelter.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (this.verificationProvider.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Shelter");
+            }
+
+            ViewData["Title"] = "Register";
             return View();
         }
 
@@ -82,7 +106,7 @@ namespace AnimalsShelter.Web.Controllers
         {
             if (this.verificationProvider.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Store");
+                return RedirectToAction("Index", "Shelter");
             }
 
             if (this.ModelState.IsValid)
@@ -98,7 +122,7 @@ namespace AnimalsShelter.Web.Controllers
                 var result = this.verificationProvider.RegisterAndLoginUser(user, model.Password, isPersistent: false, rememberBrowser: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Store");
+                    return RedirectToAction("Index", "Shelter");
                 }
 
                 AddErrors(result);
@@ -121,57 +145,11 @@ namespace AnimalsShelter.Web.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError("", error);
-            }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Shelter");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
         #endregion
