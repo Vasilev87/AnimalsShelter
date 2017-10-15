@@ -1,0 +1,45 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using AnimalsShelter.Web.ViewModels.Animals;
+
+@model IPagedList<AnimalsViewModel>
+
+@{
+    ViewBag.Title = "Lost Animals";
+}
+
+<h2>Lost Animals</h2>
+
+<p>
+    @Html.ActionLink("Add Lost Animal", "AddLostAnimal")
+</p>
+
+<div class="container">
+
+    @foreach (var animal in Model)
+    {
+        <div class="row">
+            <a class="list-group-item clearfix" href="@Url.Action("Animal", "Animal",  new { animal.Id }, null)">
+                <div class="col-md-3">
+                    @Html.Partial("_GetImagePartial", animal)
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Name: </strong>@animal.Name</p>
+                    <p><strong>Type: </strong>@animal.Type</p>
+                    <p><strong>Breed: </strong>@animal.Breed</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Gender: </strong>@animal.Gender</p>
+                    <p><strong>Age: </strong>@animal.Age</p>
+                    <p><strong>Size: </strong>@animal.Size</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Address: </strong>@animal.Address</p>
+                    <p><strong>Phone No: </strong>@animal.PhoneNumber</p>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("LostAnimals", new { page }))

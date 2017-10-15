@@ -1,0 +1,15 @@
+﻿<h4 align="center">Add Animals</h4>
+<hr />
+<div class="text-center navbar-btn">
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+            {
+        <input type="button" value="Animal for Adoption" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("AddAnimalForAdoption", "Animal")'" />
+    }
+    <input type="button" value="Animal for Rehome" class="btn btn-info"
+           onclick="window.location.href='@Url.Action("AddAnimalForRehome", "Animal")'" />
+    <input type="button" value="Lost Animal" class="btn btn-info"
+           onclick="window.location.href='@Url.Action("AddLostAnimal", "Animals")'" />
+    <input type="button" value="Found Animal" class="btn btn-info"
+           onclick="window.location.href='@Url.Action("AddFoundAnimal", "Animal")'" />
+</div>

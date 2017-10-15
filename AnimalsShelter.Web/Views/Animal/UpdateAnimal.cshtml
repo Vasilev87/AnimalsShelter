@@ -1,0 +1,97 @@
+﻿@using AnimalsShelter.Web.ViewModels.Animals;
+
+@model AnimalsViewModel
+
+@Styles.Render("~/Content/nooverflow")
+
+<h3 align="center">@ViewData["Title"]</h3>
+
+<div class="container">
+    @using (Html.BeginForm("UpdateAnimal", "Animal", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Update current computer advertisement</h4>
+        <hr />
+
+        <div class="col-md-6">
+            @Html.Partial("_UploadFilePartial", Model)
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Name, "Animal Name", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Type, "Type", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.EnumDropDownListFor(x => x.Type, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Type, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Breed, "Breed", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(x => x.Breed, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Breed, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Gender, "Gender", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.EnumDropDownListFor(x => x.Gender, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Age, "Age", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(x => x.Age, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Age, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Size, "Size", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.EnumDropDownListFor(x => x.Size, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Size, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Address, "Address", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.PhoneNumber, "Owner Phone No", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(x => x.CreatedOn)
+            <div class="col-md-offset-5 col-md-10">
+                <input type="submit" class="btn btn-primary" value="@ViewData["Title"]" />
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
