@@ -2,50 +2,57 @@
 using AnimalsShelter.Web.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using AutoMapper;
 using System.ComponentModel.DataAnnotations;
-using AnimalShelter.Common.Enums;
+using AnimalsShelter.Common.Enums;
 using System.ComponentModel;
-using AnimalsShelter.Web.ViewModels;
+using AnimalsShelter.Web.Models.Animals;
+using System.Web;
+using Newtonsoft.Json;
 
-namespace AnimalsShelter.Web.ViewModels
+namespace AnimalsShelter.Web.ViewModels.Animals
 {
     public class AnimalsViewModel : IMapFrom<Animal>, IHaveCustomMappings, IAnimalsViewModel
     {
         public Guid Id { get; set; }
         
         [MinLength(2)]
-        [MaxLength(15)]
+        [MaxLength(45)]
         public string Name { get; set; }
 
         [Required]
-        [MinLength(2)]
-        [MaxLength(15)]
-        public string Type { get; set; }
+        public AnimalType Type { get; set; }
 
         [Required]
         [MinLength(2)]
-        [MaxLength(15)]
+        [MaxLength(45)]
         public string Breed { get; set; }
 
         [Required]
         public GenderType Gender { get; set; }
 
         [Required]
-        public uint Age { get; set; }
+        [Range(0, int.MaxValue)]
+        public int Age { get; set; }
 
         [Required]
         public SizeType Size { get; set; }
 
         [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string Address { get; set; }
 
         [Required]
         [MinLength(5)]
-        [MaxLength(9)]
+        [MaxLength(13)]
         public string PhoneNumber { get; set; }
+
+        [IgnoreMap]
+        public HttpPostedFileBase Image { get; set; }
+
+        //[Required]
+        public string ImagePath { get; set; }
 
         [DisplayName("Is for Adoption")]
         public Boolean IsForAdoption { get; set; }

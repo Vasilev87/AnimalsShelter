@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Web", "AnimalsShelter.Web\AnimalsShelter.Web.csproj", "{A492D1DC-F367-411C-A105-B62C32466EC9}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Data.Model", "AnimalsShelter.Data.Model\AnimalsShelter.Data.Model.csproj", "{8C78F957-4B40-4EE2-97E1-91F19CF80E67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.Services", "AnimalsShelter.Services\AnimalsShelter.Services.csproj", "{9089AA82-1202-407B-BE45-966616E87F6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelter.UnitTests", "AnimalsShelter.UnitTests\AnimalsShelter.UnitTests.csproj", "{3A6B182C-4C07-499F-A1BB-F776A90BD7FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{9089AA82-1202-407B-BE45-966616E87F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9089AA82-1202-407B-BE45-966616E87F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9089AA82-1202-407B-BE45-966616E87F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6B182C-4C07-499F-A1BB-F776A90BD7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6B182C-4C07-499F-A1BB-F776A90BD7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6B182C-4C07-499F-A1BB-F776A90BD7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6B182C-4C07-499F-A1BB-F776A90BD7FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

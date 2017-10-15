@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,7 +73,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AnimalShelter.Common\AnimalShelter.Common.csproj">
       <Project>{025299BF-C3FD-4629-AB27-4D61B9D69E1B}</Project>
-      <Name>AnimalShelter.Common</Name>
+      <Name>AnimalsShelter.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

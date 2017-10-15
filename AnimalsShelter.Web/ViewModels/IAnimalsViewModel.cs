@@ -1,10 +1,7 @@
-﻿using AnimalShelter.Common.Enums;
+﻿using AnimalsShelter.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace AnimalsShelter.Web.ViewModels
+namespace AnimalsShelter.Web.Models.Animals
 {
     public interface IAnimalsViewModel
     {
@@ -12,11 +9,11 @@ namespace AnimalsShelter.Web.ViewModels
 
         string Name { get; set; }
 
-        string Type { get; set; }
+        AnimalType Type { get; set; }
 
         GenderType Gender { get; set; }
 
-        uint Age { get; set; }
+        int Age { get; set; }
         SizeType Size { get; set; }
 
         string Address { get; set; }

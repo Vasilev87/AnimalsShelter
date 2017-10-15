@@ -7,12 +7,22 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AnimalsShelter.Web.Models;
+using AutoMapper;
+using AnimalsShelter.Services.Contracts;
+using AutoMapper.QueryableExtensions;
+using PagedList;
+using AnimalsShelter.Web.ViewModels.Animals;
+using AnimalsShelter.Web.Models.Animals;
 
 namespace AnimalsShelter.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, User")]
     public class ManageController : Controller
     {
+        private readonly IMapper mapper;
+        private readonly IUsersService usersService;
+        private readonly IAnimalsService animalsService;
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -20,10 +30,17 @@ namespace AnimalsShelter.Web.Controllers
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController( ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+
+        public ManageController(IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
+        {
+            this.mapper = mapper;
+            this.usersService = usersService;
+            this.animalsService = animalsService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -52,7 +69,8 @@ namespace AnimalsShelter.Web.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        [HttpGet]
+        public async Task<ActionResult> Index(ManageMessageId? message, int? page)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -63,7 +81,17 @@ namespace AnimalsShelter.Web.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            ViewData["Title"] = "Manage";
+
             var userId = User.Identity.GetUserId();
+
+            var animals = this.animalsService
+                .GetAll()
+                .Where(x => x.User.Id == userId)
+                .OrderByDescending(x => x.ModifiedOn)
+                .ProjectTo<AnimalsViewModel>()
+                .ToList();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -72,8 +100,26 @@ namespace AnimalsShelter.Web.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
-            return View(model);
+
+            var pageNumber = page ?? 1;
+            var pageSize = 10;
+            var paging = animals.ToPagedList(pageNumber, pageSize);
+
+            var viewModel = new Tuple<IndexViewModel, IPagedList<IAnimalsViewModel>>(model, paging);
+            return View(viewModel);
         }
+
+        // Post Delete
+        //[HttpPost]
+        //public ActionResult Index(Guid id)
+        //{
+        //    var animal = this.animalsService
+        //        .GetAll()
+        //        .Single(x => x.Id == id);
+        //    this.animalsService.Delete(animal);
+
+        //    return Json(null);
+        //}
 
         //
         // POST: /Manage/RemoveLogin

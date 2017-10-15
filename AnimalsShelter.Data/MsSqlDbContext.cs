@@ -3,6 +3,7 @@ using AnimalsShelter.Data.Model.Contracts;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace AnimalsShelter.Data
@@ -15,15 +16,29 @@ namespace AnimalsShelter.Data
         }
 
         public IDbSet<Animal> Animals { get; set; }
-        //public IDbSet<Shelter> ShelterAnimals { get; set; }
-        //public IDbSet<Rehome> RehomeAnimals { get; set; }
-        //public IDbSet<Lost> LostAnimals { get; set; }
-        //public IDbSet<Found> FoundAnimals { get; set; }
 
         public override int SaveChanges()
         {
-            this.ApplyAuditInfoRules();
-            return base.SaveChanges();
+            try
+            {
+
+                this.ApplyAuditInfoRules();
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
 
         private void ApplyAuditInfoRules()

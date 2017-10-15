@@ -1,7 +1,7 @@
 ﻿using AnimalsShelter.Data.Model;
 using AnimalsShelter.Services.Contracts;
 using System.Linq;
-using AnimalShelter.Data.Repositories;
+using AnimalsShelter.Data.Repositories;
 using AnimalsShelter.Data.SaveContext;
 
 namespace AnimalsShelter.Services

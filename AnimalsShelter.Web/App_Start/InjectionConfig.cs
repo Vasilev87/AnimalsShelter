@@ -11,11 +11,12 @@ namespace AnimalsShelter.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Extensions.Conventions;
-    using AnimalShelter.Data.Repositories;
+    using Data.Repositories;
     using System.Data.Entity;
     using Data;
     using Services.Contracts;
     using AutoMapper;
+    using Data.SaveContext;
 
     public static class InjectionConfig 
     {
@@ -81,6 +82,7 @@ namespace AnimalsShelter.Web.App_Start
                  .BindDefaultInterface();
             });
 
+            kernel.Bind<ISaveContext>().To<SaveContext>();
             kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
             kernel.Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>));
             kernel.Bind<IMapper>().ToMethod(x => Mapper.Instance).InSingletonScope();

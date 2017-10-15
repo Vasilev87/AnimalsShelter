@@ -9,14 +9,11 @@ namespace AnimalsShelter.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jquerygrid").Include(
-                       "~/Scripts/jquery.jqGrid.js",
-                       "~/Scripts/i18n/grid.locale-en.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -37,8 +34,18 @@ namespace AnimalsShelter.Web
                      "~/Content/themes/base/jquery-ui.css",
                      "~/Content/jquery.jqGrid/ui.jqgrid.css"));
 
-            //bundles.Add(new StyleBundle("~/Content/advertisement").Include(
-            //         "~/Content/PagedList.css"));
+            bundles.Add(new StyleBundle("~/Content/advertisement").Include(
+                     "~/Content/PagedList.css"));
+
+            bundles.Add(new StyleBundle("~/Content/administration").Include(
+                     "~/Content/admin.css"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                       "~/Scripts/DataTables/jquery.dataTables.js"));
+
+            bundles.Add(new StyleBundle("~/Content/datatables").Include(
+                    "~/Content/DataTables/css/jquery.dataTables.css"));
         }
     }
 }

@@ -6,8 +6,12 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="no-padding"><a href="/admin">Admin Panel</a></li>
+            }
             <li class="no-padding">
-                @Html.ActionLink("Hello, " + User.Identity.GetUserName().Split('@')[0] + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName().Split('@')[0].ToUpper() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li class="no-padding"><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
         </ul>

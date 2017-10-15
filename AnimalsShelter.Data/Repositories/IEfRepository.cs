@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AnimalsShelter.Data.Model.Contracts;
 
-namespace AnimalShelter.Data.Repositories
+namespace AnimalsShelter.Data.Repositories
 {
     public interface IEfRepository<T> where T : class, IDeletable
     {

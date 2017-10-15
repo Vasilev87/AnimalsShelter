@@ -1,4 +1,4 @@
-﻿using AnimalShelter.Common.Enums;
+﻿using AnimalsShelter.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +11,13 @@ namespace AnimalsShelter.Data.Model.Contracts
     {
         string Name { get; set; }
 
-        string Type { get; set; }
+        AnimalType Type { get; set; }
 
         string Breed { get; set; }
 
         GenderType Gender { get; set; }
 
-        uint Age { get; set; }
+        int Age { get; set; }
 
         SizeType Size { get; set; }
 

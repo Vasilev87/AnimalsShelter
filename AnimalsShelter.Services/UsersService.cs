@@ -1,4 +1,4 @@
-﻿using AnimalShelter.Data.Repositories;
+﻿using AnimalsShelter.Data.Repositories;
 using AnimalsShelter.Data.Model;
 using AnimalsShelter.Data.SaveContext;
 using AnimalsShelter.Services.Contracts;

@@ -5,7 +5,7 @@ using System.Linq;
 using AnimalsShelter.Data.Model.Contracts;
 using AnimalsShelter.Data;
 
-namespace AnimalShelter.Data.Repositories
+namespace AnimalsShelter.Data.Repositories
 {
     public class EfRepository<T> : IEfRepository<T>
         where T : class, IDeletable
