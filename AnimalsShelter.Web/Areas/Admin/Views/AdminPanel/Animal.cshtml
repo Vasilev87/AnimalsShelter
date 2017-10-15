@@ -1,0 +1,36 @@
+﻿@using AnimalsShelter.Web.ViewModels.Animals;
+
+@model AnimalsViewModel
+
+@{
+    ViewBag.Title = "Animal info";
+}
+
+<h3 align="center">Added by @Model.User.UserName.Split('@')[0].ToUpper()</h3>
+
+@Html.HiddenFor(x => Model.Id)
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3" align="center">
+            @Html.Partial("_GetImagePartial", Model)
+        </div>
+        <div class="col-md-3" align="center">
+            <h4><strong>Owner details: </strong></h4>
+            <p><span></span> <strong>E-mail:</strong> @Model.User.Email </p>
+            <p><span></span> <strong>Phone Number:</strong> @Model.PhoneNumber</p>
+            <p><span></span> <strong>Address:</strong> @Model.Address</p>
+        </div>
+        <h4 align="center">Animal Details</h4>
+        <div class="col-md-3" align="center">
+            <p><span></span> <strong>Name:</strong> @Model.Name</p>
+            <p><span></span> <strong>Type:</strong> @Model.Type</p>
+            <p><span></span> <strong>Breed:</strong> @Model.Breed</p>
+        </div>
+        <div class="col-md-3" align="center">
+            <p><span></span> <strong>Gender:</strong> @Model.Gender</p>
+            <p><span></span> <strong>Age:</strong> @Model.Age</p>
+            <p><span></span> <strong>Size:</strong> @Model.Size</p>
+        </div>
+    </div>
+</div>

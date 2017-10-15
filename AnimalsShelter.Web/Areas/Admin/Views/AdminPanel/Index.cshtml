@@ -1,0 +1,57 @@
+﻿@using AnimalsShelter.Web.ViewModels.Animals;
+
+@model AnimalsViewModel
+
+@Scripts.Render("~/bundles/datatables")
+@Styles.Render("~/Content/datatables")
+@Styles.Render("~/Content/css")
+
+<div id="content">
+</div>
+
+<div class="row text-center">
+    <div class="col">
+        <input type="button" value="Add Animal for Adoption" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("AddAnimalForAdoption", "AdminPanel")'" />
+    </div>
+    <div class="col">
+        <input type="button" value="Add Animal for Rehome" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("AddAnimalForRehome", "AdminPanel")'" />
+    </div>
+    <div class="col">
+        <input type="button" value="Add Lost Animal" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("AddLostAnimal", "AdminPanel")'" />
+    </div>
+    <div class="col">
+        <input type="button" value="Add Found Animal" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("AddFoundAnimal", "AdminPanel")'" />
+    </div>
+    <div class="col">
+        <input type="button" value="View All Animals" class="btn btn-info"
+               onclick="window.location.href='@Url.Action("Animals", "AdminPanel")'" />
+    </div>
+</div>
+
+<hr />
+
+
+@section scripts{
+    <script>
+        let content = $('#content');
+        let children = content.children();
+        if (children.length === 0) {
+            let el = $('<h5 />')
+                .text("Admin Options!")
+                .css("font-weight", "bold")
+                .css("color", "red")
+                .css("text-align", "center");
+            content.append(el);
+        }
+
+        $('.selector').on('click', (event) => {
+            let animal = event.target.id;
+            let url = `/admin/adminpanel/${animal}`;
+            content.load(url);
+        })
+    </script>
+}

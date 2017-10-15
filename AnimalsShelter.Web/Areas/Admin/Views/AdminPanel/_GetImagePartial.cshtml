@@ -1,0 +1,8 @@
+﻿@using AnimalsShelter.Web.ViewModels.Animals
+
+@model AnimalsViewModel
+
+@if (!string.IsNullOrEmpty(Model.ImagePath))
+{
+    <img class="avatar" src="@Url.Content(Model.ImagePath)" alt="Image" />
+}

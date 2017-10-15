@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="no-padding"><a href="/admin">Admin Panel</a></li>
+            }
+            <li class="no-padding">
+                @Html.ActionLink("Hello, " + User.Identity.GetUserName().Split('@')[0].ToUpper() + "!", "Index", "Manage", new { area = "" }, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li class="no-padding"><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="no-padding">@Html.ActionLink("Register", "Register", "Account", new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+        <li class="no-padding">@Html.ActionLink("Sign in", "Login", "Account", new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

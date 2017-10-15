@@ -1,0 +1,88 @@
+﻿@using AnimalsShelter.Web.ViewModels.Animals;
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<AnimalsViewModel>
+
+<h3 class="centerText">All Animals</h3>
+
+<hr />
+
+<div class="table-responsive">
+    <table id="animalsTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Seller</th>
+                <th>Posted On</th>
+                <th>Created On</th>
+                <th>Price</th>
+                <th>See Ad</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var animal in Model)
+            {
+
+                <tr>
+                    <td>@Html.Partial("_GetImagePartial", animal)</td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Type</td>
+                    <td>@animal.User.Email</td>
+                    <td>@animal.ModifiedOn</td>
+                    <td>@animal.CreatedOn</td>
+                    <td>@animal.Age</td>
+
+                    @{
+                        string adLink = $"/admin/adminpanel/animal/{animal.Id}";
+                        string editLink = $"/adminpanel/update/animal/{animal.Id}";
+                    }
+
+                    <td>
+                        <a class="btn btn-default" target="_blank" href="@Url.Action("Animal", "AdminPanel", new { animal.Id }, null)">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a class="btn btn-primary" target="_blank" href="@Url.Action("UpdateAnimal", "AdminPanel", new { id = animal.Id }, null)" >
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+
+                    <td>
+                        @Ajax.ActionLink("X", "DeleteAnimal", "AdminPanel",
+                                        new { id = animal.Id },
+                                        new AjaxOptions { HttpMethod = "POST" },
+                                        new { @class = "btn btn-danger" })
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Animals", new { page }))
+
+@section scripts {
+    <script>
+        //$(document).ready(function () {
+        //    $('#animalsTable').DataTable();
+        //});
+
+        $(".btn-danger").on('click', (event) => {
+            let el = $(event.target);
+            el.parent().parent().remove();
+        });
+
+        $('.selector').on('click', (event) => {
+            let animal = event.target.id;
+            let url = `/admin/adminpanel/${animal}`;
+            content.load(url);
+        })
+    </script>
+}
