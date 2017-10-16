@@ -1,5 +1,4 @@
-﻿using AnimalsShelter.Data.Model;
-using AnimalsShelter.Data.Model.Contracts;
+﻿using AnimalsShelter.Data.Model.Contracts;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;

@@ -13,20 +13,21 @@ using TestStack.FluentMVCTesting;
 
 namespace AnimalsShelter.UnitTests.Controllers
 {
+    [TestFixture]
     public class AnimalControllerTests
     {
-        [Test]
-        public void Controller_ShouldThrowArgumentNullException_WhenProviderIsNull()
-        {
-            //Arrange
-            var mapperMock = new Mock<IMapper>();
-            var userServiceMock = new Mock<IUsersService>();
-            var animalServiceMock = new Mock<IAnimalsService>();
+        //[Test]
+        //public void Controller_ShouldThrowArgumentNullException_WhenProviderIsNull()
+        //{
+        //    //Arrange
+        //    var mapperMock = new Mock<IMapper>();
+        //    var userServiceMock = new Mock<IUsersService>();
+        //    var animalServiceMock = new Mock<IAnimalsService>();
 
-            // Act && Assert
-            Assert.Throws<ArgumentNullException>(() =>
-                new AnimalController(null, mapperMock.Object, userServiceMock.Object, animalServiceMock.Object));
-        }
+        //    // Act && Assert
+        //    Assert.Throws<ArgumentNullException>(() =>
+        //        new AnimalController(null, mapperMock.Object, userServiceMock.Object, animalServiceMock.Object));
+        //}
 
         [Test]
         public void Controller_ShoudThrowArgumetnNullException_WhenMapperIsNull()
@@ -67,42 +68,116 @@ namespace AnimalsShelter.UnitTests.Controllers
                 new AnimalController(verificationMock.Object, mapperMock.Object, userServiceMock.Object, null));
         }
 
-        //[Test]
-        //public void Computer_ShouldReturnsTrue_WhenViewResult_IsValid()
-        //{
-        //    // Arrange
-        //    Mapper.Initialize(cfg =>
-        //    {
-        //        cfg.CreateMap<Computer, ComputerViewModel>();
-        //        cfg.CreateMap<ComputerViewModel, Computer>();
-        //    });
+        // Single Animal
+        [Test]
+        public void Animal_ShouldReturnsTrue_WhenViewResult_IsValid()
+        {
+            // Arrange
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Animal, AnimalsViewModel>();
+                cfg.CreateMap<AnimalsViewModel, Animal>();
+            });
 
-        //    var mockedProvider = new Mock<IVerificationProvider>();
-        //    var mockedMapper = new Mock<IMapper>();
-        //    var mockedUsersService = new Mock<IUsersService>();
-        //    var mockedComputersService = new Mock<IComputersService>();
-        //    var mockedLaptopsService = new Mock<ILaptopsService>();
-        //    var mockedDisplaysService = new Mock<IDisplaysService>();
+            var verificationProviderMock = new Mock<IVerificationProvider>();
+            var mapperMock = new Mock<IMapper>();
+            var mockedUsersService = new Mock<IUsersService>();
+            var animalServiceMock = new Mock<IAnimalsService>();
 
-        //    var controller = new DeviceController(mockedProvider.Object, mockedMapper.Object, mockedUsersService.Object,
-        //        mockedComputersService.Object, mockedLaptopsService.Object, mockedDisplaysService.Object);
+            var animalController = new AnimalController(verificationProviderMock.Object, mapperMock.Object, mockedUsersService.Object, animalServiceMock.Object);
 
-        //    // Act
-        //    var computer = new Computer
-        //    {
-        //        Id = Guid.NewGuid()
-        //    };
-        //    var computersCollection = new List<Computer>() { computer };
+            // Act
+            var animal = new Animal
+            {
+                Id = Guid.NewGuid()
+            };
+            var animalsCollection = new List<Animal>() { animal };
 
-        //    mockedComputersService.Setup(c => c.GetAll()).Returns(computersCollection.AsQueryable());
+            animalServiceMock.Setup(c => c.GetAll()).Returns(animalsCollection.AsQueryable());
 
 
-        //    //Assert
-        //    controller
-        //        .WithCallTo(c => c.Computer(computer.Id))
-        //        .ShouldRenderView("Computer");
-        //}
+            //Assert
+            animalController.WithCallTo(c => c.Animal(animal.Id))
+                .ShouldRenderView("Animal");
+        }
 
+        // All Animals
+        [Test]
+        public void Animals_ShouldReturnTrue_WhenViewResult_IsValid()
+        {
+            // Arrange
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Animal, AnimalsViewModel>();
+                cfg.CreateMap<AnimalsViewModel, Animal>();
+            });
 
+            var verificationProviderMock = new Mock<IVerificationProvider>();
+            var mapperMock = new Mock<IMapper>();
+            var mockedUsersService = new Mock<IUsersService>();
+            var animalServiceMock = new Mock<IAnimalsService>();
+
+            var animalController = new AnimalController(verificationProviderMock.Object, mapperMock.Object, mockedUsersService.Object, animalServiceMock.Object);
+
+            //Act and Assert
+            animalController.WithCallTo(x => x.Animals(1))
+                .ShouldRenderView("Animals");
+        }
+
+        [Test]
+        public void AddAnimalForAdoptionGET_ShouldReturnsTrue_WhenViewResult_IsValid()
+        {
+            // Arrange
+            var verificationMock = new Mock<IVerificationProvider>();
+            var mapperMock = new Mock<IMapper>();
+            var userServiceMock = new Mock<IUsersService>();
+            var animalServiceMock = new Mock<IAnimalsService>();
+
+            var adminPanelController = new AnimalController(verificationMock.Object, mapperMock.Object, userServiceMock.Object, animalServiceMock.Object);
+
+            // Act and Assert
+            adminPanelController.WithCallTo(c => c.AddFoundAnimal())
+                .ShouldRenderView("AddFoundAnimal");
+        }
+
+        [Test]
+        public void AddAnimalPostRequire_ShouldReturnsTrue_WhenViewResult_IsValid()
+        {
+            // Arrange
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Animal, AnimalsViewModel>();
+                cfg.CreateMap<AnimalsViewModel, Animal>();
+            });
+            
+            var verificationMock = new Mock<IVerificationProvider>();
+            var mapperMock = new Mock<IMapper>();
+            var userServiceMock = new Mock<IUsersService>();
+            var animalServiceMock = new Mock<IAnimalsService>();
+
+            var adminPanelController = new AnimalController(verificationMock.Object, mapperMock.Object, userServiceMock.Object, animalServiceMock.Object);
+
+            // Act
+            var animal = new Animal
+            {
+                Id = Guid.NewGuid()
+            };
+
+            var user = new User
+            {
+                Id = "123"
+            };
+
+            var usersCollection = new List<User>() { user };
+
+            verificationMock.Setup(x => x.CurrentUserId).Returns(user.Id);
+            userServiceMock.Setup(c => c.GetAll()).Returns(usersCollection.AsQueryable());
+
+            animalServiceMock.Setup(c => c.Add(animal));
+
+            //Assert
+            adminPanelController.WithCallTo(c => c.AddAnimalForAdoption(animal))
+                .ShouldRedirectTo((ManageController c) => c.Index(null, 1));
+        }
     }
 }

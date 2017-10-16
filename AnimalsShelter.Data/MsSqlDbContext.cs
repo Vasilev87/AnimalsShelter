@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AnimalsShelter.Data
@@ -21,23 +22,22 @@ namespace AnimalsShelter.Data
         {
             try
             {
-
                 this.ApplyAuditInfoRules();
                 return base.SaveChanges();
             }
-            catch (DbEntityValidationException e)
+            catch (DbEntityValidationException ex)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
+                var errorMessages = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
+
+                var fullErrorMessage = string.Join(Environment.NewLine, errorMessages);
+
+                var exceptionMessage =
+                    string.Concat($"{ex.Message}{Environment.NewLine}The validation errors are:{Environment.NewLine}{fullErrorMessage}");
+
+                Debug.WriteLine(exceptionMessage);
+                throw new DbEntityValidationException(exceptionMessage);
             }
         }
 

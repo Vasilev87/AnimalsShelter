@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace AnimalsShelter.Web.Controllers
 {
@@ -15,6 +11,8 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
+        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        [ChildActionOnly]
         public ActionResult IndexCache()
         {
             return this.PartialView();
@@ -27,6 +25,8 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
+        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        [ChildActionOnly]
         public ActionResult AboutCache()
         {
             return this.PartialView();
@@ -39,6 +39,8 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
+        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        [ChildActionOnly]
         public ActionResult ContactCache()
         {
             return this.PartialView();

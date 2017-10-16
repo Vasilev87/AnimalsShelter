@@ -67,7 +67,7 @@ namespace AnimalsShelter.Web.Controllers
                 return View(model);
             }
 
-            returnUrl = string.IsNullOrEmpty(returnUrl) ? "/Store/Index" : returnUrl;
+            returnUrl = string.IsNullOrEmpty(returnUrl) ? "/Shelter/Index" : returnUrl;
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true

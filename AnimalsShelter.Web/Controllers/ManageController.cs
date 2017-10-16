@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -12,59 +11,34 @@ using AnimalsShelter.Services.Contracts;
 using AutoMapper.QueryableExtensions;
 using PagedList;
 using AnimalsShelter.Web.ViewModels.Animals;
-using AnimalsShelter.Web.Models.Animals;
+using AnimalsShelter.Web.WebUtils.Contracts;
+using Bytes2you.Validation;
 
 namespace AnimalsShelter.Web.Controllers
 {
     [Authorize(Roles = "Admin, User")]
     public class ManageController : Controller
     {
+        private readonly IVerificationProvider verificationProvider;
         private readonly IMapper mapper;
         private readonly IUsersService usersService;
         private readonly IAnimalsService animalsService;
-
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
 
         public ManageController()
         {
         }
 
-        public ManageController( ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(IVerificationProvider verificationProvider, IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+            Guard.WhenArgument(verificationProvider, nameof(verificationProvider)).IsNull().Throw();
+            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
+            Guard.WhenArgument(usersService, nameof(usersService)).IsNull().Throw();
+            Guard.WhenArgument(animalsService, nameof(animalsService)).IsNull().Throw();
 
-        public ManageController(IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
-        {
+            this.verificationProvider = verificationProvider;
             this.mapper = mapper;
             this.usersService = usersService;
             this.animalsService = animalsService;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
         }
 
         //
@@ -83,7 +57,7 @@ namespace AnimalsShelter.Web.Controllers
 
             ViewData["Title"] = "Manage";
 
-            var userId = User.Identity.GetUserId();
+            var userId = this.verificationProvider.CurrentUserId;
 
             var animals = this.animalsService
                 .GetAll()
@@ -102,6 +76,7 @@ namespace AnimalsShelter.Web.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewData["Title"] = "Change Password";
             return View();
         }
 
@@ -109,38 +84,28 @@ namespace AnimalsShelter.Web.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = this.verificationProvider.ChangePassword(this.verificationProvider.CurrentUserId, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = this.verificationProvider.GetUserById(this.verificationProvider.CurrentUserId);
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    this.verificationProvider.SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
         }
-        
-
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {

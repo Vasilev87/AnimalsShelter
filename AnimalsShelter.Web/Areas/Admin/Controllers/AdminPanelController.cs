@@ -10,21 +10,35 @@ using AnimalsShelter.Data.Model;
 using Microsoft.AspNet.Identity;
 using AutoMapper;
 using System.IO;
+using AnimalsShelter.Web.WebUtils.Contracts;
+using Bytes2you.Validation;
 
 namespace AnimalsShelter.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
+
+        private readonly IVerificationProvider verificationProvider;
         private readonly IMapper mapper;
         private readonly IUsersService usersService;
         private readonly IAnimalsService animalsService;
 
-        public AdminPanelController(IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
+        public AdminPanelController(IVerificationProvider verificationProvider, IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
         {
+            Guard.WhenArgument(verificationProvider, nameof(verificationProvider)).IsNull().Throw();
+            Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
+            Guard.WhenArgument(usersService, nameof(usersService)).IsNull().Throw();
+            Guard.WhenArgument(animalsService, nameof(animalsService)).IsNull().Throw();
+
+            this.verificationProvider = verificationProvider;
             this.mapper = mapper;
             this.usersService = usersService;
             this.animalsService = animalsService;
+        }
+
+        public AdminPanelController()
+        {
         }
 
         // GET: Admin/AdminPanel
@@ -80,7 +94,7 @@ namespace AnimalsShelter.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddAnimalForAdoption(Animal animal)
         {
-            var userId = User.Identity.GetUserId();
+            var userId = this.verificationProvider.CurrentUserId;
             var currentUser = this.usersService
                 .GetAll()
                 .SingleOrDefault(x => x.Id == userId);

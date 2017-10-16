@@ -1,4 +1,6 @@
-﻿namespace AnimalsShelter.Data.SaveContext
+﻿using Bytes2you.Validation;
+
+namespace AnimalsShelter.Data.SaveContext
 {
     public class SaveContext : ISaveContext
     {
@@ -6,6 +8,8 @@
 
         public SaveContext(MsSqlDbContext context)
         {
+            Guard.WhenArgument(context, nameof(context)).IsNull().Throw();
+
             this.context = context;
         }
 

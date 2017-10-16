@@ -245,17 +245,14 @@
     <Compile Include="ViewModels\Common\VerifyCodeViewModel.cs" />
     <Compile Include="ViewModels\Common\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="ViewModels\IAnimalsViewModel.cs" />
-    <Compile Include="ViewModels\Manage\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\Manage\ConfigurateTwoFactoryViewModel.cs" />
-    <Compile Include="ViewModels\Manage\SendCodeViewModel.cs" />
-    <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\Manage\UserViewModel.cs" />
     <Compile Include="WebUtils\Contracts\IHttpContextProvider.cs" />
     <Compile Include="WebUtils\Contracts\IVerificationProvider.cs" />
     <Compile Include="WebUtils\HttpContextProvicer.cs" />
+    <Compile Include="WebUtils\Managers\ApplicationSignInManager.cs" />
+    <Compile Include="WebUtils\Managers\ApplicationUserManager.cs" />
     <Compile Include="WebUtils\VerificationProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -662,24 +659,10 @@
     <Content Include="Views\Shelter\About.cshtml" />
     <Content Include="Views\Shelter\Contact.cshtml" />
     <Content Include="Views\Shelter\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shelter\AboutCache.cshtml" />

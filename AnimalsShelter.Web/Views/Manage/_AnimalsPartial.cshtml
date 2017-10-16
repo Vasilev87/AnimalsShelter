@@ -63,7 +63,7 @@ else
 
 <script>
     $(document).ready(function () {
-        $('#computersTable').DataTable();
+        $('#animalsTable').DataTable();
     });
 
     $(".btn-danger").on('click', (event) => {
@@ -72,7 +72,7 @@ else
     });
 
     $('#refreshButton').on('click', () => {
-        let url = '/admin/adminpanel/computers';
+        let url = '/admin/adminpanel/animals';
         content.load(url);
     })
 </script>

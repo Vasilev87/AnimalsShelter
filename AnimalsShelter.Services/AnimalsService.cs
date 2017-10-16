@@ -3,6 +3,7 @@ using AnimalsShelter.Services.Contracts;
 using System.Linq;
 using AnimalsShelter.Data.Repositories;
 using AnimalsShelter.Data.SaveContext;
+using Bytes2you.Validation;
 
 namespace AnimalsShelter.Services
 {
@@ -13,6 +14,9 @@ namespace AnimalsShelter.Services
 
         public AnimalsService(IEfRepository<Animal> animalsRepo, ISaveContext saveContext)
         {
+            Guard.WhenArgument(animalsRepo, nameof(animalsRepo)).IsNull().Throw();
+            Guard.WhenArgument(saveContext, nameof(saveContext)).IsNull().Throw();
+
             this.animalsRepo = animalsRepo;
             this.saveContext = saveContext;
         }

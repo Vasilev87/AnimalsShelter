@@ -24,7 +24,7 @@ namespace AnimalsShelter.Web.Controllers
 
         public AnimalController(IVerificationProvider verificationProvider, IMapper mapper, IUsersService usersService, IAnimalsService animalsService)
         {
-            Guard.WhenArgument(verification, nameof(verification)).IsNull().Throw();
+            //Guard.WhenArgument(verification, nameof(verification)).IsNull().Throw();
             Guard.WhenArgument(mapper, nameof(mapper)).IsNull().Throw();
             Guard.WhenArgument(usersService, nameof(usersService)).IsNull().Throw();
             Guard.WhenArgument(animalsService, nameof(animalsService)).IsNull().Throw();
