@@ -8,39 +8,38 @@
     ViewBag.Title = "Found Animals";
 }
 
-<h2>Found Animals</h2>
-
-<p>
-    @Html.ActionLink("Add Found Animal", "AddFoundAnimal")
-</p>
-
-<div class="container">
-
-    @foreach (var animal in Model)
+<p class="btn btn-default btn-group-justified">
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
     {
-        <div class="row">
-            <a class="list-group-item clearfix" href="@Url.Action("Animal", "Animal",  new { animal.Id }, null)">
-                <div class="col-md-3">
-                    @Html.Partial("_GetImagePartial", animal)
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Name: </strong>@animal.Name</p>
-                    <p><strong>Type: </strong>@animal.Type</p>
-                    <p><strong>Breed: </strong>@animal.Breed</p>
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Gender: </strong>@animal.Gender</p>
-                    <p><strong>Age: </strong>@animal.Age</p>
-                    <p><strong>Size: </strong>@animal.Size</p>
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Address: </strong>@animal.Address</p>
-                    <p><strong>Phone No: </strong>@animal.PhoneNumber</p>
-                </div>
-            </a>
-        </div>
+        @Html.ActionLink("Add Found Animal", "AddFoundAnimal", null, new { @class = "no-dec" })
     }
-</div>
+</p>
+<br />
+<p class="text-center font-weight-bold">Found Animals</p>
+
+@foreach (var animal in Model)
+{
+    <a class="list-group-item clearfix" href="@Url.Action("Animal", "Animal",  new { animal.Id }, null)">
+        <div class="col-md-3">
+            @Html.Partial("_GetImagePartial", animal)
+        </div>
+        <div class="col-md-3">
+            <p><strong>Name: </strong><h5>@animal.Name</h5></p>
+            <p><strong>Type: </strong><h5>@animal.Type</h5></p>
+            <p><strong>Breed: </strong><h5>@animal.Breed</h5></p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Gender: </strong><h5>@animal.Gender</h5></p>
+            <p><strong>Age: </strong><h5>@animal.Age</h5></p>
+            <p><strong>Size: </strong><h5>@animal.Size</h5></p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Address: </strong><h5>@animal.Address</h5></p>
+            <p><strong>Phone No: </strong><h5>@animal.PhoneNumber</h5></p>
+            <p><strong>User: </strong><h5>@animal.User.UserName.Split('@')[0].ToUpper()</h5></p>
+        </div>
+    </a>
+}
 
 @Html.PagedListPager(Model, page => Url.Action("FoundAnimals", new { page }))
 

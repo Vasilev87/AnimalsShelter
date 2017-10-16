@@ -10,29 +10,21 @@
 
 @Html.HiddenFor(x => Model.Id)
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-5" align="center">
-            @Html.Partial("_GetImagePartial", Model)
-        </div>
-        <div class="col-md-5">
-            <h4><strong>Owner details: </strong></h4>
-            <p><span class="glyphicon glyphicon-envelope"></span> Email: @Model.User.Email </p>
-            <p><span class="glyphicon glyphicon-phone-alt"></span> Phone number: @Model.PhoneNumber</p>
-        </div>
-    </div>
-
-    <h4><strong>Animal details: </strong></h4>
-    <div class="row">
-        <div class="col-md-5">
-            <p><span class="glyphicon glyphicon-cog"></span> Name: @Model.Name</p>
-            <p><span class="glyphicon glyphicon-road"></span> Type: @Model.Type</p>
-            <p><span class="glyphicon glyphicon-plane"></span> Breed: @Model.Breed</p>
-        </div>
-        <div class="col-md-5">
-            <p><span class="glyphicon glyphicon-inbox"></span> Gender: @Model.Gender</p>
-            <p><span class="glyphicon glyphicon-hdd"></span> Age: @Model.Age</p>
-            <p><span class="glyphicon glyphicon-picture"></span> Size: @Model.Size</p>
-        </div>
-    </div>
+<div class="col-md-3">
+    @Html.Partial("_GetImagePartial", Model)
+</div>
+<div class="col-md-3">
+    <p><strong>Name: </strong><strong>@Model.Name</strong></p>
+    <p><strong>Type: </strong><strong>@Model.Type</strong></p>
+    <p><strong>Breed: </strong><strong>@Model.Breed</strong></p>
+</div>
+<div class="col-md-3">
+    <p><strong>Gender: </strong><strong>@Model.Gender</strong></p>
+    <p><strong>Age: </strong><strong>@Model.Age</strong></p>
+    <p><strong>Size: </strong><strong>@Model.Size</strong></p>
+</div>
+<div class="col-md-3">
+    <p><strong>Address: </strong><strong>@Model.Address</strong></p>
+    <p><strong>Phone No: </strong><strong>@Model.PhoneNumber</strong></p>
+    <p><strong>User: </strong><strong>@Model.User.UserName.Split('@')[0].ToUpper()</strong></p>
 </div>

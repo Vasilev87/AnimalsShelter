@@ -40,6 +40,19 @@ textarea {
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 120px !important;
+    height: 120px !important;
+}
+
+.no-dec {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+div.no-dec {
+    margin-left: 145px !important;
+}
+
+input.just {
+    width: 550px;
 }

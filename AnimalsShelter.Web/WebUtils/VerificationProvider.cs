@@ -1,9 +1,11 @@
-﻿using AnimalsShelter.Data.Model;
+﻿using System.IO;
+using AnimalsShelter.Data.Model;
 using AnimalsShelter.Web.WebUtils.Contracts;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
+using System.Web;
 
 namespace AnimalsShelter.Web.WebUtils
 {

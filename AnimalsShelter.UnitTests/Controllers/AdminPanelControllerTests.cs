@@ -215,15 +215,25 @@ namespace AnimalsShelter.UnitTests.Controllers
 
         //    //string filePath = Path.GetFullPath(@"AnimalsShelter.Web\UploadedFiles\testimage.jpg");
         //    //FileStream fileStream = new FileStream(filePath, FileMode.Open);
+
+        //    var image = "testimage.jpg";
+        //    var fullpath = "/test/testimage.jpg";
+
         //    var uploadedFile = new Mock<HttpPostedFileBase>();
         //    uploadedFile
         //        .Setup(f => f.ContentLength)
-        //        .Returns(10);
+        //        .Returns(0);
 
         //    uploadedFile
         //        .Setup(f => f.FileName)
-        //        .Returns("testimage.jpg");
+        //        .Returns(image);
 
+
+        //    var server = new Mock<HttpServerUtilityBase>();
+        //    server.Setup(s => s.MapPath(image)).Returns(fullpath);
+
+        //    uploadedFile
+        //        .Setup(f => f.SaveAs(fullpath));
 
         //    //uploadedFile
         //    //    .Setup(f => f.InputStream)
@@ -232,7 +242,7 @@ namespace AnimalsShelter.UnitTests.Controllers
         //    // Act
 
 
-        //    var animal = new Animal
+        //   var animal = new Animal
         //    {
         //        Id = Guid.NewGuid(),
         //        ImagePath = "~/UploadedFiles/",

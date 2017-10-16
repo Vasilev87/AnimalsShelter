@@ -6,7 +6,12 @@
     ViewBag.Title = "Add Animal for Adoption";
 }
 
-<h2>Add Animal for Adoption</h2>
+<div class="container">
+    <div class="col-md-4">
+        Add Animal for Adoption
+    </div>
+</div>
+
 
 @using (Html.BeginForm("AddAnimalForAdoption", "AdminPanel", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {

@@ -2,13 +2,8 @@
 using AnimalsShelter.Data.Model.Abstracts;
 using AnimalsShelter.Data.Model.Contracts;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace AnimalsShelter.Data.Model

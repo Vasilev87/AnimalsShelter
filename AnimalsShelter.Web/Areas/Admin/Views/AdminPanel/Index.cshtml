@@ -11,28 +11,27 @@
 
 <div class="row text-center">
     <div class="col">
-        <input type="button" value="Add Animal for Adoption" class="btn btn-info"
+        <input type="button" value="Add Animal for Adoption" class="btn btn-default just font-weight-bold"
                onclick="window.location.href='@Url.Action("AddAnimalForAdoption", "AdminPanel")'" />
     </div>
     <div class="col">
-        <input type="button" value="Add Animal for Rehome" class="btn btn-info"
+        <input type="button" value="Add Animal for Rehome" class="btn btn-default just font-weight-bold"
                onclick="window.location.href='@Url.Action("AddAnimalForRehome", "AdminPanel")'" />
     </div>
+
     <div class="col">
-        <input type="button" value="Add Lost Animal" class="btn btn-info"
+        <input type="button" value="Add Lost Animal" class="btn btn-default just font-weight-bold"
                onclick="window.location.href='@Url.Action("AddLostAnimal", "AdminPanel")'" />
     </div>
     <div class="col">
-        <input type="button" value="Add Found Animal" class="btn btn-info"
+        <input type="button" value="Add Found Animal" class="btn btn-default just font-weight-bold"
                onclick="window.location.href='@Url.Action("AddFoundAnimal", "AdminPanel")'" />
     </div>
     <div class="col">
-        <input type="button" value="View All Animals" class="btn btn-info"
+        <input type="button" value="View All Animals" class="btn btn-default just font-weight-bold"
                onclick="window.location.href='@Url.Action("Animals", "AdminPanel")'" />
     </div>
 </div>
-
-<hr />
 
 
 @section scripts{
@@ -41,7 +40,7 @@
         let children = content.children();
         if (children.length === 0) {
             let el = $('<h5 />')
-                .text("Admin Options!")
+                .text("Admin Controls!")
                 .css("font-weight", "bold")
                 .css("color", "red")
                 .css("text-align", "center");

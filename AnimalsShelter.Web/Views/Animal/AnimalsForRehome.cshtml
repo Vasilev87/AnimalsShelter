@@ -8,37 +8,36 @@
     ViewBag.Title = "Animals for Rehome";
 }
 
-<h2>Animals for Rehome</h2>
-
-<p>
-    @Html.ActionLink("Add Animal for Rehome", "AddAnimalForRehome")
-</p>
-
-<div class="container">
-    @foreach (var animal in Model)
+<p class="btn btn-default btn-group-justified">
+    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
     {
-        <div class="row">
-            <a class="list-group-item clearfix" href="@Url.Action("Animal", "Animal",  new { animal.Id }, null)">
-                <div class="col-md-3">
-                    @Html.Partial("_GetImagePartial", animal)
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Name: </strong>@animal.Name</p>
-                    <p><strong>Type: </strong>@animal.Type</p>
-                    <p><strong>Breed: </strong>@animal.Breed</p>
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Gender: </strong>@animal.Gender</p>
-                    <p><strong>Age: </strong>@animal.Age</p>
-                    <p><strong>Size: </strong>@animal.Size</p>
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Address: </strong>@animal.Address</p>
-                    <p><strong>Phone No: </strong>@animal.PhoneNumber</p>
-                </div>
-            </a>
-        </div>
+        @Html.ActionLink("Add Animal for Rehome", "AddAnimalForRehome", new { @class = "no-dec font-weight-bold" })
     }
-</div>
+</p>
+<br />
+<p class="text-center font-weight-bold">Animals for Rehome</p>
+
+@foreach (var animal in Model)
+{
+    <a class="list-group-item clearfix" href="@Url.Action("Animal", "Animal",  new { animal.Id }, null)">
+        <div class="col-md-3">
+            @Html.Partial("_GetImagePartial", animal)
+        </div>
+        <div class="col-md-3">
+            <p><strong>Name: </strong>@animal.Name</p>
+            <p><strong>Type: </strong>@animal.Type</p>
+            <p><strong>Breed: </strong>@animal.Breed</p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Gender: </strong>@animal.Gender</p>
+            <p><strong>Age: </strong>@animal.Age</p>
+            <p><strong>Size: </strong>@animal.Size</p>
+        </div>
+        <div class="col-md-3">
+            <p><strong>Address: </strong>@animal.Address</p>
+            <p><strong>Phone No: </strong>@animal.PhoneNumber</p>
+        </div>
+    </a>
+}
 
 @Html.PagedListPager(Model, page => Url.Action("AnimalsForRehome", new { page }))

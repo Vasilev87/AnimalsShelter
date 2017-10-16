@@ -11,7 +11,7 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
-        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        //[OutputCache(Duration = 3600, VaryByParam = "none")]
         [ChildActionOnly]
         public ActionResult IndexCache()
         {
@@ -25,7 +25,7 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
-        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        //[OutputCache(Duration = 3600, VaryByParam = "none")]
         [ChildActionOnly]
         public ActionResult AboutCache()
         {
@@ -39,7 +39,7 @@ namespace AnimalsShelter.Web.Controllers
             return View();
         }
 
-        [OutputCache(Duration = 3600, VaryByParam = "none")]
+        //[OutputCache(Duration = 3600, VaryByParam = "none")]
         [ChildActionOnly]
         public ActionResult ContactCache()
         {
